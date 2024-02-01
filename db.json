@@ -223,7 +223,7 @@
       "freehold": "Freehold",
       "sellerid": "22",
       "uploadimages": "https://i.postimg.cc/c4hXLkqn/shoehouse.jpg",
-      "propertystatus": "For Sale",
+      "propertystatus": "Withdrawn",
       "id": 1
     },
     {
@@ -253,7 +253,7 @@
       "freehold": "Freehold",
       "sellerid": "19374",
       "uploadimages": "https://media.rightmove.co.uk/239k/238904/113426084/238904_30950767_IMG_06_0000.jpeg",
-      "propertystatus": "Sold",
+      "propertystatus": "For Sale",
       "id": 3
     },
     {
@@ -268,7 +268,7 @@
       "freehold": "Freehold",
       "sellerid": "2",
       "uploadimages": "https://live.staticflickr.com/6104/6209490249_0809210c25_b.jpg",
-      "propertystatus": "For Sale",
+      "propertystatus": "Withdrawn",
       "id": 4
     },
     {
@@ -328,7 +328,7 @@
       "freehold": "Leasehold",
       "sellerid": "3248973427",
       "uploadimages": "https://media.rightmove.co.uk/41k/40925/86355405/40925_WOB230869_IMG_02_0000.jpeg",
-      "propertystatus": "For Sale",
+      "propertystatus": "Withdrawn",
       "id": 8
     },
     {
@@ -401,6 +401,12 @@
       "time": "09:00",
       "property": "1",
       "id": 9
+    },
+    {
+      "date": "2024-01-31",
+      "time": "12:00",
+      "property": "1",
+      "id": 10
     }
   ]
 }

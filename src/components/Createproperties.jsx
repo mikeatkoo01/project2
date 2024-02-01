@@ -3,38 +3,32 @@ import { useState } from "react";
 
 
 function CreateProperties() {
-    const [address, setAddress] = useState("");
-    const [offersinregionof, setOffersInRegionOf] = useState("");
+    const [address, setAddress] = useState(""); 
     const [typeofproperty, setTypeOfProperty] = useState("");
-    const [squarefootage, setSquareFootage] = useState("");
     const [bedrooms, setBedrooms] = useState("");
     const [bathrooms, setBathrooms] = useState("");
     const [garden, setGarden] = useState("");
-    const [outbuildings, setOutbuildings] = useState("");
-    const [freehold, setFreehold] = useState("");
     const [sellerid, setSellerid] = useState("");
     const [uploadimages, setUploadImages] = useState("");
-    const [propertystatus, setPropertyStatus] = useState("")
+    const [propertystatus, setPropertyStatus] = useState("");
+    const [price, setPrice] = useState("");
 
 
 
     return (<form className = "form" onSubmit={e => {
         e.preventDefault();
-        axios.post("http://localhost:5000/properties", { address, offersinregionof: parseInt(offersinregionof), typeofproperty, squarefootage: parseInt(squarefootage), bedrooms: parseInt(bedrooms), bathrooms: parseInt(bathrooms), garden, outbuildings, freehold, sellerid, uploadimages, propertystatus })
+        axios.post("http://localhost:8080/property/create", { address, typeofproperty, bedrooms: parseInt(bedrooms), bathrooms: parseInt(bathrooms), garden, sellerid, uploadimages, propertystatus, price : parseInt(price) })
             .then(response => {
                 console.log(response);
                 setAddress("");
-                setOffersInRegionOf("");
                 setTypeOfProperty("");
-                setSquareFootage("");
                 setBedrooms("");
                 setBathrooms("");
                 setGarden("");
-                setOutbuildings("");
-                setFreehold("");
                 setSellerid("");
                 setUploadImages("");
-                setPropertyStatus("")
+                setPropertyStatus("");
+                setPrice("")
             })
             .catch(err => console.error(err))
     }}>
@@ -48,14 +42,14 @@ function CreateProperties() {
             onChange={e => setAddress(e.target.value)}
             required
         />
-        <label htmlFor="PropertyOffersInRegionOf" className="form-label">Offers in region of £</label>
+        <label htmlFor="Price" className="form-label">Price</label>
         <input
-            id="PropertiesOffersInRegionOf"
-            name="OffersInRegionOf"
+            id="Price"
+            name="Price"
             className="form-control"
             type="number"
-            value={offersinregionof}
-            onChange={e => setOffersInRegionOf(e.target.value)}
+            value={price}
+            onChange={e => setPrice(e.target.value)}
             required
         />
         <label htmlFor="PropertyTypeOfProperty" className="form-label">Type of property</label>
@@ -66,16 +60,6 @@ function CreateProperties() {
             type="text"
             value={typeofproperty}
             onChange={e => setTypeOfProperty(e.target.value)}
-            required
-        />
-        <label htmlFor="PropertiesSquareFootage" className="form-label">Square Footage</label>
-        <input
-            id="propertySquareFootage"
-            name="SquareFootage"
-            className="form-control"
-            type="number"
-            value={squarefootage}
-            onChange={e => setSquareFootage(e.target.value)}
             required
         />
         <label htmlFor="PropertyBedrooms" className="form-label">Number of bedrooms</label>
@@ -126,26 +110,8 @@ function CreateProperties() {
                 <label className="form-check-label" htmlFor="propertyGardenNo">No</label>
             </div>
         </div>
-        <label htmlFor="PropertyOutbuildings" className="form-label">Outbuilding Description</label>
-        <input
-            id="propertyOutbuildings"
-            name="outbuildings"
-            className="form-control"
-            type="text"
-            value={outbuildings}
-            onChange={e => setOutbuildings(e.target.value)}
-            required
-        />
-        <label htmlFor="PropertyFreehold" className="form-label">Freehold or Leasehold ?</label>
-        <input
-            id="propertyFreehold"
-            name="freehold"
-            className="form-control"
-            type="text"
-            value={freehold}
-            onChange={e => setFreehold(e.target.value)}
-            required
-        />
+       
+        
         <label htmlFor="PropertySellerid" className="form-label">Seller ID</label>
         <input
             id="propertySellerid"

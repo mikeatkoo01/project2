@@ -7,7 +7,7 @@ function GetBookings() {
         
     }, []);
     function handleClick(){
-        axios.get("http://localhost:5000/bookings")
+        axios.get("http://localhost:8080/booking/display")
             .then(response => { setBookings(response.data) }).catch(err => console.error(err))
     };
 
@@ -18,11 +18,11 @@ function GetBookings() {
             <td>{booking.time}</td>
             <td>{booking.property}</td>
             <td><button type="button" onClick={() => {
-                        axios.delete("http://localhost:5000/bookings/" + booking.id)
+                        axios.delete("http://localhost:8080/booking/remove/{id}")
                             .then(res => {
 
 
-                                axios.get("http://localhost:5000/bookings")
+                                axios.get("http://localhost:8080/booking/display")
                                     .then(response => {
                                         setBookings(response.data)
                                         console.log(response);

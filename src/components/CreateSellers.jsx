@@ -8,33 +8,31 @@ function CreateSellers() {
     const [firstName, setFirstName] = useState("");
     const [surname, setSurname] = useState("");
     const [tel, setTel] = useState("");
-    const [email, setEmail] = useState("");
-    const [address, setAddress] = useState("");
+   
 
 
     return (<fieldset> <form className = "form" onSubmit={e => {
         e.preventDefault();
 
-        axios.get("http://localhost:5000/sellers").then(response => {
+        axios.get("http://localhost:8080/seller/display").then(response => {
             const existingSellers = response.data;
             const exists = existingSellers.some(seller => { return seller.firstName === firstName && seller.surname === surname; });
             if (!exists) {
 
 
 
-                axios.post("http://localhost:5000/sellers", { title, firstName, surname, tel, email, address })
+                axios.post("http://localhost:8080/seller/create", { title, firstName, surname, tel })
                     .then(response => {
                         console.log(response);
                         setTitle("");
                         setFirstName("");
                         setSurname("");
                         setTel("");
-                        setEmail("");
-                        setAddress("");
+        
                     })
                     .catch(err => console.error(err));
             } else {
-                console.log("Seller with the same name already exists");
+                
                 alert("Seller with the same name already exists")
             } 
         })     .catch(err => console.error(err));
@@ -79,26 +77,6 @@ function CreateSellers() {
             type="number"
             value={tel}
             onChange={e => setTel(e.target.value)}
-            required
-        />
-        <label htmlFor="sellersEmail" className="form-label">E-mail</label>
-        <input
-            id="sellersEmail"
-            name="email"
-            className="form-control"
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-        />
-        <label htmlFor="sellersAddress" className="form-label">Address</label>
-        <input
-            id="sellersAddress"
-            name="address"
-            className="form-control"
-            type="text"
-            value={address}
-            onChange={e => setAddress(e.target.value)}
             required
         />
         <br />

@@ -9,11 +9,10 @@ function GetProperties() {
     const [search, setSearch] = useState("");
     const [properties, setProperties] = useState("");
     const [searchBedrooms, setSearchBedrooms] = useState(0);
-    const [searchOffersInRegionOf, setSearchOffersInRegionOf] = useState(0);
+    const [searchPrice, setPrice] = useState(0);
     const [searchBathrooms, setSearchBathrooms] = useState(0);
     const [searchGardens, setSearchGardens] = useState("");
     const [searchStatus, setSearchStatus] = useState("");
-    const [propertystatus, setPropertyStatus] = useState("");
     const navigate = useNavigate();
 
 
@@ -29,7 +28,7 @@ function GetProperties() {
     function fetchProperties() {
 
 
-        axios.get("http://localhost:5000/properties")
+        axios.get("http://localhost:8080/property/display")
             .then(response => {
                 setProperties(response.data)
                 console.log(response);
@@ -45,7 +44,7 @@ function GetProperties() {
     function handleStatus(event, id) {
 
 
-        axios.patch("http://localhost:5000/properties/" + id, { propertystatus: event.target.value })
+        axios.patch("http://localhost:8080/property/update/{id}", { propertystatus: event.target.value })
             .then(response => {
                 fetchProperties()
                 console.log(response);
@@ -62,10 +61,10 @@ function GetProperties() {
 
         if (search && !property.address.includes(search)) continue;
         if (searchBedrooms && property.bedrooms < parseInt(searchBedrooms, 10)) continue;
-        if (searchOffersInRegionOf && property.offersinregionof > parseInt(searchOffersInRegionOf, 10)) continue;
+        if (searchPrice && property.price > parseInt(searchPrice, 10)) continue;
         if (searchBathrooms && property.bathrooms < parseInt(searchBathrooms, 10)) continue;
         if (searchGardens && property.garden != searchGardens) continue;
-        if (searchStatus && property.propertystatus != searchStatus) continue;
+        if (searchStatus && property.status != searchStatus) continue;
 
 
         //use a table or cards to include all of the data or else get rid of the button 
@@ -85,14 +84,14 @@ function GetProperties() {
 
                             <p className='card-title '>
                                 <p><b>Address:</b> {property.address}</p>
-                                <p> <b>Offers in the Region of: £</b> {property.offersinregionof}</p>
+                                <p> <b>Price: £</b> {property.price}</p>
                                 <p> <b>Type of Property:</b> {property.typeofproperty}</p>
-                                <p> <b>Square Footage:</b> {property.squarefootage}</p>
+                                
                                 <p> <b>No. of Bedrooms:</b> {property.bedrooms}</p>
                                 <p> <b>No. of Bathrooms:</b>{property.bathrooms}</p>
                                 <p> <b>Gardens?:</b> {property.garden}</p>
-                                <p> <b>Outbuildings?:</b> {property.outbuildings}</p>
-                                <p> <b>Freehold or Leasehold:</b> {property.freehold}</p>
+                                
+                            
                                 <p> <b>Seller ID:</b> {property.sellerid}</p>
                                 <p><button onClick={() => navigate("/properties/bookings/" + property.id)}
 
@@ -104,7 +103,7 @@ function GetProperties() {
                             </p>
 
                             <label >Property Status</label>
-                            <select value={property.propertystatus} onChange={e => handleStatus(e, property.id)} name="propertystatus" >
+                            <select value={property.status} onChange={e => handleStatus(e, property.id)} name="propertystatus" >
                                 <option value="" >Status</option>
                                 <option value="For Sale">For Sale</option>
                                 <option value="Sold">Sold</option>
@@ -134,7 +133,7 @@ function GetProperties() {
             <p>{searchBedrooms} <input type="range" min="1" max="55" value={searchBedrooms} onChange={e => setSearchBedrooms(e.target.value)} />
             </p><br />
             <h5>Search for maximum price</h5>
-            <p> {searchOffersInRegionOf} <input type="range" min="0" max="3000000" value={searchOffersInRegionOf} onChange={e => setSearchOffersInRegionOf(e.target.value)} />
+            <p> {searchPrice} <input type="range" min="0" max="3000000" value={searchPrice} onChange={e => setPrice(e.target.value)} />
             </p><br />
             <h5>Search for number of bathrooms </h5>
             <p>{searchBathrooms} <input type="range" min="1" max="47" value={searchBathrooms} onChange={e => setSearchBathrooms(e.target.value)} />
