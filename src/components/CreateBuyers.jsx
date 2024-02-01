@@ -8,8 +8,7 @@ function CreateBuyers() {
     const [firstName, setFirstName] = useState("");
     const [surname, setSurname] = useState("");
     const [tel, setTel] = useState("");
-    // const [email, setEmail] = useState("");
-    // const [address, setAddress] = useState("");
+    
     
 
 
@@ -19,37 +18,34 @@ function CreateBuyers() {
         e => {
             e.preventDefault();
 
-            axios.get("http://localhost:5000/buyers").then(response => {
+            axios.get("http://localhost:8080/buyer/display").then(response => {
                 const existingBuyers = response.data;
                 const exists = existingBuyers.some(buyer => {
                     return buyer.firstName === firstName && buyer.surname === surname;
                 });
 
                 if (!exists) {
-                    axios.post("http://localhost:5000/buyers", {
+                    axios.post("http://localhost:8080/buyer/create", {
                         title,
                         firstName,
                         surname,
-                        tel
-                        // email,
-                        // address
+                        tel,
+                    
                     })
                         .then(() => { 
 
-                            console.log("Buyer added successfully");
+                    
                             setTitle("");
                             setFirstName("");
                             setSurname("");
                             setTel("");
-                            // setEmail("");
-                            // setAddress("");
 
                         })
                         .catch(err => console.error(err));
 
                 } else {
-                    console.log("Buyer with the same name already exists.");
-                    alert("Buyer with the same name already exists")
+                
+                 alert("Buyer with the same name already exists")
                 }
             }).catch(err => console.error(err));
         }}>
@@ -98,26 +94,6 @@ function CreateBuyers() {
             onChange={e => setTel(e.target.value)}
             required
         />
-        {/* <label htmlFor="buyerEmail" className="form-label">E-mail</label>
-        <input
-            id="buyerEmail"
-            name="email"
-            className="form-control"
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-        />
-        <label htmlFor="buyerAddress" className="form-label">Address</label>
-        <input
-            id="buyerAddress"
-            name="address"
-            className="form-control"
-            type="text"
-            value={address}
-            onChange={e => setAddress(e.target.value)}
-            required
-        /> */}
 <br />
         <div className="mt-2">
             <button className="btn btn-success" type="submit">Submit</button>

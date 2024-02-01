@@ -12,7 +12,7 @@ function GetBuyer() {
     function handleClick() {
 
 
-        axios.get("http://localhost:5000/buyers")
+        axios.get("http://localhost:8080/buyer/display")
             .then(response => {
                 setBuyers(response.data)
                 console.log(response);
@@ -40,14 +40,13 @@ function GetBuyer() {
                             <p><b>First Name:</b> {buyer.firstName}</p>
                             <p><b>Surname:</b> {buyer.surname}</p>
                             <p><b>Tel:</b> {buyer.tel}</p>
-                            <p><b>Email:</b> {buyer.email}</p>
-                            <p><b>Address:</b> {buyer.address}</p>
+                           
                             <p><button type="button" onClick={() => {
-                        axios.delete("http://localhost:5000/buyers/" + buyer.id)
+                        axios.delete("http://localhost:8080/buyer/remove/{id}")
                             .then(res => {
 
 
-                                axios.get("http://localhost:5000/buyers")
+                                axios.get("http://localhost:8080/buyer/display")
                                     .then(response => {
                                         setBuyers(response.data)
                                         console.log(response);
