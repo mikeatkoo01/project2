@@ -8,8 +8,8 @@ function CreateSellers() {
     const [firstName, setFirstName] = useState("");
     const [surname, setSurname] = useState("");
     const [tel, setTel] = useState("");
-    const [email, setEmail] = useState("");
-    const [address, setAddress] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [address, setAddress] = useState("");
 
 
     return (<fieldset> <form className = "form" onSubmit={e => {
@@ -22,15 +22,15 @@ function CreateSellers() {
 
 
 
-                axios.post("http://localhost:5000/sellers", { title, firstName, surname, tel, email, address })
+                axios.post("http://localhost:5000/sellers", { title, firstName, surname, tel/*, email, address*/ })
                     .then(response => {
                         console.log(response);
                         setTitle("");
                         setFirstName("");
                         setSurname("");
                         setTel("");
-                        setEmail("");
-                        setAddress("");
+                        // setEmail("");
+                        // setAddress("");
                     })
                     .catch(err => console.error(err));
             } else {
@@ -81,7 +81,7 @@ function CreateSellers() {
             onChange={e => setTel(e.target.value)}
             required
         />
-        <label htmlFor="sellersEmail" className="form-label">E-mail</label>
+        {/* <label htmlFor="sellersEmail" className="form-label">E-mail</label>
         <input
             id="sellersEmail"
             name="email"
@@ -100,7 +100,7 @@ function CreateSellers() {
             value={address}
             onChange={e => setAddress(e.target.value)}
             required
-        />
+        /> */}
         <br />
         
 

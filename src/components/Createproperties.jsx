@@ -6,12 +6,12 @@ function CreateProperties() {
     const [address, setAddress] = useState("");
     const [offersinregionof, setOffersInRegionOf] = useState("");
     const [typeofproperty, setTypeOfProperty] = useState("");
-    const [squarefootage, setSquareFootage] = useState("");
+    // const [squarefootage, setSquareFootage] = useState("");
     const [bedrooms, setBedrooms] = useState("");
     const [bathrooms, setBathrooms] = useState("");
     const [garden, setGarden] = useState("");
-    const [outbuildings, setOutbuildings] = useState("");
-    const [freehold, setFreehold] = useState("");
+    // const [outbuildings, setOutbuildings] = useState("");
+    // const [freehold, setFreehold] = useState("");
     const [sellerid, setSellerid] = useState("");
     const [uploadimages, setUploadImages] = useState("");
     const [propertystatus, setPropertyStatus] = useState("")
@@ -20,18 +20,18 @@ function CreateProperties() {
 
     return (<form className = "form" onSubmit={e => {
         e.preventDefault();
-        axios.post("http://localhost:5000/properties", { address, offersinregionof: parseInt(offersinregionof), typeofproperty, squarefootage: parseInt(squarefootage), bedrooms: parseInt(bedrooms), bathrooms: parseInt(bathrooms), garden, outbuildings, freehold, sellerid, uploadimages, propertystatus })
+        axios.post("http://localhost:5000/properties", { address, offersinregionof: parseInt(offersinregionof), typeofproperty, /*squarefootage: parseInt(squarefootage),*/ bedrooms: parseInt(bedrooms), bathrooms: parseInt(bathrooms), garden,/* outbuildings, freehold,*/ sellerid, uploadimages, propertystatus })
             .then(response => {
                 console.log(response);
                 setAddress("");
                 setOffersInRegionOf("");
                 setTypeOfProperty("");
-                setSquareFootage("");
+                // setSquareFootage("");
                 setBedrooms("");
                 setBathrooms("");
                 setGarden("");
-                setOutbuildings("");
-                setFreehold("");
+                // setOutbuildings("");
+                // setFreehold("");
                 setSellerid("");
                 setUploadImages("");
                 setPropertyStatus("")
@@ -68,7 +68,7 @@ function CreateProperties() {
             onChange={e => setTypeOfProperty(e.target.value)}
             required
         />
-        <label htmlFor="PropertiesSquareFootage" className="form-label">Square Footage</label>
+        {/* <label htmlFor="PropertiesSquareFootage" className="form-label">Square Footage</label>
         <input
             id="propertySquareFootage"
             name="SquareFootage"
@@ -77,7 +77,7 @@ function CreateProperties() {
             value={squarefootage}
             onChange={e => setSquareFootage(e.target.value)}
             required
-        />
+        /> */}
         <label htmlFor="PropertyBedrooms" className="form-label">Number of bedrooms</label>
         <input
             id="propertyBedrooms"
@@ -126,7 +126,7 @@ function CreateProperties() {
                 <label className="form-check-label" htmlFor="propertyGardenNo">No</label>
             </div>
         </div>
-        <label htmlFor="PropertyOutbuildings" className="form-label">Outbuilding Description</label>
+        {/* <label htmlFor="PropertyOutbuildings" className="form-label">Outbuilding Description</label>
         <input
             id="propertyOutbuildings"
             name="outbuildings"
@@ -145,7 +145,7 @@ function CreateProperties() {
             value={freehold}
             onChange={e => setFreehold(e.target.value)}
             required
-        />
+        /> */}
         <label htmlFor="PropertySellerid" className="form-label">Seller ID</label>
         <input
             id="propertySellerid"

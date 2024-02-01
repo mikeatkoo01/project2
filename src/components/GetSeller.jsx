@@ -44,6 +44,21 @@ function GetSeller() {
                                 <p><b>Tel:</b> {seller.tel}</p>
                                 <p><b>Email:</b> {seller.email}</p>
                                 <p><b>Address:</b> {seller.address}</p>
+                                <p><button type="button" onClick={() => {
+                        axios.delete("http://localhost:5000/buyers/" + seller.id)
+                            .then(res => {
+
+
+                                axios.get("http://localhost:5000/buyers")
+                                    .then(response => {
+                                        setSellers(response.data)
+                                        console.log(response);
+                                    })
+                                    .catch(err => console.error(err))
+                        
+                            })
+                            .catch(err => console.error(err));
+                    }}>DELETE</button></p>
 
                             </div>
                         </div>

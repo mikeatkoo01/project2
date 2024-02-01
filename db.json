@@ -143,15 +143,6 @@
       "email": "wackyhumour@hehehe.com",
       "address": "4 More Than Just A Cow, Push to Entersville, J14 8JJ",
       "id": 16
-    },
-    {
-      "title": "Lady",
-      "firstName": "Precious",
-      "surname": "Poppet",
-      "tel": "07395274955",
-      "email": "sweetheart@oplease.com",
-      "address": "524 Pink Castle Avenue, Handbagville HA1 2VL",
-      "id": 17
     }
   ],
   "sellers": [
@@ -238,7 +229,7 @@
       "freehold": "Freehold",
       "sellerid": "1",
       "uploadimages": "https://th.bing.com/th/id/R.e56e3049a52d0e2df31bd77f66230972?rik=y7vPEdU3DUl33g&riu=http%3a%2f%2fhouseandhistory.com%2fwp-content%2fuploads%2f2018%2f01%2f112-Ocean-Avenue-Front.jpeg&ehk=RPOEA9u%2fH4PKJg9LoAZlqN1%2fuDOlrRTRv9V5GvrKC3Y%3d&risl=&pid=ImgRaw&r=0",
-      "propertystatus": "Withdrawn",
+      "propertystatus": "Sold",
       "id": 2
     },
     {

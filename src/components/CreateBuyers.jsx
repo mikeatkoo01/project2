@@ -8,8 +8,8 @@ function CreateBuyers() {
     const [firstName, setFirstName] = useState("");
     const [surname, setSurname] = useState("");
     const [tel, setTel] = useState("");
-    const [email, setEmail] = useState("");
-    const [address, setAddress] = useState("");
+    // const [email, setEmail] = useState("");
+    // const [address, setAddress] = useState("");
     
 
 
@@ -30,9 +30,9 @@ function CreateBuyers() {
                         title,
                         firstName,
                         surname,
-                        tel,
-                        email,
-                        address
+                        tel
+                        // email,
+                        // address
                     })
                         .then(() => { 
 
@@ -41,8 +41,8 @@ function CreateBuyers() {
                             setFirstName("");
                             setSurname("");
                             setTel("");
-                            setEmail("");
-                            setAddress("");
+                            // setEmail("");
+                            // setAddress("");
 
                         })
                         .catch(err => console.error(err));
@@ -98,7 +98,7 @@ function CreateBuyers() {
             onChange={e => setTel(e.target.value)}
             required
         />
-        <label htmlFor="buyerEmail" className="form-label">E-mail</label>
+        {/* <label htmlFor="buyerEmail" className="form-label">E-mail</label>
         <input
             id="buyerEmail"
             name="email"
@@ -117,7 +117,7 @@ function CreateBuyers() {
             value={address}
             onChange={e => setAddress(e.target.value)}
             required
-        />
+        /> */}
 <br />
         <div className="mt-2">
             <button className="btn btn-success" type="submit">Submit</button>
