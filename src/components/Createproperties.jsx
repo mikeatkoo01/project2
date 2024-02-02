@@ -3,7 +3,7 @@ import { useState } from "react";
 
 
 function CreateProperties() {
-    const [address, setAddress] = useState(""); 
+    const [address, setAddress] = useState("");
     const [typeofproperty, setTypeOfProperty] = useState("");
     const [bedrooms, setBedrooms] = useState("");
     const [bathrooms, setBathrooms] = useState("");
@@ -15,9 +15,9 @@ function CreateProperties() {
 
 
 
-    return (<form className = "form" onSubmit={e => {
+    return (<form className="form" onSubmit={e => {
         e.preventDefault();
-        axios.post("http://localhost:8080/property/create", { address, typeofproperty, bedrooms: parseInt(bedrooms), bathrooms: parseInt(bathrooms), garden, sellerid, uploadimages, propertystatus, price : parseInt(price) })
+        axios.post("http://localhost:8080/property/create", { address, typeofproperty, bedrooms: parseInt(bedrooms), bathrooms: parseInt(bathrooms), garden, sellerid, uploadimages, propertystatus, price: parseInt(price) })
             .then(response => {
                 console.log(response);
                 setAddress("");
@@ -84,34 +84,21 @@ function CreateProperties() {
         />
 
         <div>
+
             <label className="form-check-label" htmlFor="propertyGardenYes">Garden</label>
             <div className="form-check">
-                <label className="form-check-label" htmlFor="propertyGardenYes"></label>
-                <input
-                    id="propertyGardenYes"
-                    type="radio"
-                    name="Garden"
-                    value="Yes"
-                    className="form-check-input"
-                    checked={garden}
-                    onChange={e => setGarden(e.target.value)}
-                />
-                <label className="form-check-label" htmlFor="propertyGardenYes">Yes</label>
-            </div>
-            <div className="form-check">
-                <input
-                    id="propertyGardenNo"
-                    type="radio"
-                    name="Garden"
-                    value="No"
-                    className="form-check-input"
-                    onChange={e => setGarden(e.target.value)}
-                />
-                <label className="form-check-label" htmlFor="propertyGardenNo">No</label>
+
+                <select onChange={e => setGarden(e.target.value)}>
+                    <option selected value={""}>Please Select</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
+
+                </select>
+
             </div>
         </div>
-       
-        
+
+
         <label htmlFor="PropertySellerid" className="form-label">Seller ID</label>
         <input
             id="propertySellerid"
@@ -127,53 +114,26 @@ function CreateProperties() {
             id="propertyUploadImages"
             name="uploadimages"
             className="form-control"
-            type="image"
+            type="text"
             value={uploadimages}
             onChange={e => setUploadImages(e.target.value)}
 
         />
 
-<div>
+        <div>
             <label className="form-check-label" htmlFor="propertyStatus">Property Status</label>
             <div className="form-check">
-                <label className="form-check-label" htmlFor="propertyStatusForSale">For Sale</label>
-                <input
-                    id="propertyStatusForSale"
-                    type="radio"
-                    name="PropertyStatus"
-                    value="For Sale"
-                    className="form-check-input"
-                    checked={propertystatus}
-                    onChange={e => setPropertyStatus(e.target.value)}
-                />
-                 
-            </div>
-            <div className="form-check">
-                <input
-                    id="propertyStatusSold"
-                    type="radio"
-                    name="PropertyStatus"
-                    value="Sold"
-                    className="form-check-input"
-                    onChange={e => setPropertyStatus(e.target.value)}
-                />
-                <label className="form-check-label" htmlFor="propertyGardenNo">Sold</label>
-            </div>
-            <div className="form-check">
-                <input
-                    id="propertyStatusWithdrawn"
-                    type="radio"
-                    name="PropertyStatus"
-                    value="Withdrawn"
-                    className="form-check-input"
-                    onChange={e => setPropertyStatus(e.target.value)}
-                />
-                <label className="form-check-label" htmlFor="propertyGardenNo">Withdrawn</label>
+                <select onChange={e => setPropertyStatus(e.target.value)}>
+                
+                    <option selected value="For Sale">For Sale</option>
+                    <option value="Sold">Sold</option>
+                    <option value="Withdrawn">Withdrawn</option>
+                </select>
             </div>
         </div>
 
-     
-<br />
+
+        <br />
         <div className="mt-2">
             <button className="btn btn-success" type="submit">Submit</button>
         </div>
