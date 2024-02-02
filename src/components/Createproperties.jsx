@@ -4,26 +4,21 @@ import { useState } from "react";
 
 function CreateProperties() {
     const [address, setAddress] = useState(""); 
-    const [typeofproperty, setTypeOfProperty] = useState("");
-    // const [squarefootage, setSquareFootage] = useState("");
-    const [bedrooms, setBedrooms] = useState("");
-    const [bathrooms, setBathrooms] = useState("");
-    const [garden, setGarden] = useState("");
-    // const [outbuildings, setOutbuildings] = useState("");
-    // const [freehold, setFreehold] = useState("");
+    const [typeOfProperty, setTypeOfProperty] = useState("");
+    
     const [bedrooms, setBedrooms] = useState("");
     const [bathrooms, setBathrooms] = useState("");
     const [garden, setGarden] = useState("");
     const [sellerid, setSellerid] = useState("");
-    const [uploadimages, setUploadImages] = useState("");
-    const [propertystatus, setPropertyStatus] = useState("");
+    const [uploadImages, setUploadImages] = useState("");
+    const [propertyStatus, setPropertyStatus] = useState("");
     const [price, setPrice] = useState("");
 
 
 
     return (<form className = "form" onSubmit={e => {
         e.preventDefault();
-        axios.post("http://localhost:8080/property/create", { address, typeofproperty, bedrooms: parseInt(bedrooms), bathrooms: parseInt(bathrooms), garden, sellerid, uploadimages, propertystatus, price : parseInt(price) })
+        axios.post("http://localhost:8080/property/create", { address, typeOfProperty, bedrooms: parseInt(bedrooms), bathrooms: parseInt(bathrooms), garden, sellerid, uploadImages, propertyStatus, price : parseInt(price) })
             .then(response => {
                 console.log(response);
                 setAddress("");
@@ -64,7 +59,7 @@ function CreateProperties() {
             name="TypeOfProperty"
             className="form-control"
             type="text"
-            value={typeofproperty}
+            value={typeOfProperty}
             onChange={e => setTypeOfProperty(e.target.value)}
             required
         />
@@ -133,8 +128,8 @@ function CreateProperties() {
             id="propertyUploadImages"
             name="uploadimages"
             className="form-control"
-            type="image"
-            value={uploadimages}
+            type="src"
+            value={uploadImages}
             onChange={e => setUploadImages(e.target.value)}
 
         />
@@ -149,7 +144,7 @@ function CreateProperties() {
                     name="PropertyStatus"
                     value="For Sale"
                     className="form-check-input"
-                    checked={propertystatus}
+                    checked={propertyStatus}
                     onChange={e => setPropertyStatus(e.target.value)}
                 />
                  
