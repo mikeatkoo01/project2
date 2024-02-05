@@ -16,7 +16,7 @@ function GetBookings() {
         displayBookings.push(<tr key={booking.id}>
             <td>{booking.date}</td>
             <td>{booking.time}</td>
-            <td>{booking.property}</td>
+            <td>{booking.propertyId}</td>
             <td><button type="button" onClick={() => {
                         axios.delete("http://localhost:8080/booking/remove/{id}")
                             .then(res => {

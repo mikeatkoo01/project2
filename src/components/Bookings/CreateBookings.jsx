@@ -67,6 +67,21 @@ step = "3600"
 onChange={e => setTime(e.target.value)}/>
 
 
+{/* **************************************** */}
+
+
+<label htmlFor="buyer"className="form-label">Time</label>
+<input id="bookingsTime"
+name="time"
+className="form-control"
+type="time"
+value={time}
+min = "09:00"
+max = "16:00"
+step = "3600"
+onChange={e => setTime(e.target.value)}/>
+
+
 <br />
 <>
  <button className="btn btn-danger" type="submit">Confirm Booking</button>
