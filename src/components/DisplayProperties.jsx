@@ -9,8 +9,9 @@ function GetProperties(props) {
 
     const [search, setSearch] = useState("");
     const [properties, setProperties] = useState("");
+    const [searchLocation, setSearchLocation] = useState("");
     const [searchBedrooms, setSearchBedrooms] = useState(0);
-    const [searchPrice, setPrice] = useState(0);
+    const [searchPrice, setSearchPrice] = useState(0);
     const [searchBathrooms, setSearchBathrooms] = useState(0);
     const [searchGardens, setSearchGardens] = useState("");
     const [searchStatus, setSearchStatus] = useState("");
@@ -45,17 +46,7 @@ function GetProperties(props) {
 
 
 
-    // function handleStatus(event, id) {
 
-
-    //     axios.patch("http://localhost:8080/property/update/{id}", { propertyStatus: event.target.value })
-    //         .then(response => {
-    //             fetchProperties()
-    //             console.log(response);
-    //         })
-    //         .catch(err => console.error(err))
-
-    // };
 
 
     const displayProperties = [];
@@ -63,15 +54,15 @@ function GetProperties(props) {
 
     for (const property of properties) {
 
-        if (search && !property.address.includes(search)) continue;
+
         if (searchBedrooms && property.bedrooms < parseInt(searchBedrooms, 10)) continue;
         if (searchPrice && property.price > parseInt(searchPrice, 10)) continue;
         if (searchBathrooms && property.bathrooms < parseInt(searchBathrooms, 10)) continue;
-        if (searchGardens && property.garden !== searchGardens) continue;
-        if (searchStatus && property.status !== searchStatus) continue;
+        if (searchGardens && property.garden !== searchGardens) continue; if (searchGardens && property.garden !== searchGardens) continue;
+        if (searchLocation && !property.location.toLowerCase().includes(searchLocation.toLowerCase())) continue;
+        if (searchStatus && property.propertyStatus !== searchStatus) continue;
 
-        // if(property.garden===true) property.setGarden("Yes");
-        // else  property.setGarden("No");
+
 
 
         //use a table or cards to include all of the data or else get rid of the button 
@@ -86,6 +77,7 @@ function GetProperties(props) {
                             <div className='card-text'>
                                 <p className='card-title '>
                                     <p><b>Address:</b> {property.address}</p>
+                                    <p><b>Location:</b> {property.location}</p>
                                     <p> <b>Price: £</b> {property.price}</p>
                                     <p> <b>Type of Property:</b> {property.typeofproperty}</p>
 
@@ -94,7 +86,7 @@ function GetProperties(props) {
                                     <p> <b>Garden</b> {property.garden}</p>
 
 
-                                    <p> <b>Seller ID:</b> {property.sellerid}</p>
+
                                     <p> <b>Status:</b> {property.propertyStatus}</p>
 
                                     <p><button onClick={() => navigate("/properties/bookings/" + property.id)}
@@ -107,19 +99,13 @@ function GetProperties(props) {
                                 </p>
 
 
-                                {/* <label >Property Status</label>
-                                <select value={property.propertyStatus} onChange={e => handleStatus(e, property.id)} name="propertystatus" >
-                                    <option value="" >Status</option>
-                                    <option value="For Sale">For Sale</option>
-                                    <option value="Sold">Sold</option>
-                                    <option value="Withdrawn">Withdrawn</option>
 
-                               </select> */}
 
                                 <form onSubmit={e => {
                                     e.preventDefault();
-                                    //  handleStatus();
-                                    axios.patch("http://localhost:8080/property/{property.id}" )
+                                    console.log("property id", property.id);
+
+                                    axios.patch("http://localhost:8080/property/update/" + property.id, { propertyStatus })
                                         .then(response => {
                                             fetchProperties()
 
@@ -132,24 +118,27 @@ function GetProperties(props) {
 
                                 }}>
 
-                                <select style={{ width: "100px", display: "inline", margin: "5px" }} onChange={(e) => setPropertyStatus(e.target.value)} required>
-                                    <option value="">Select</option>
-                                    <option value="For Sale">For Sale</option>
-                                    <option value="Sold">Sold</option>
-                                    <option value="Withdrawn">Withdraw</option>
+                                    <select style={{ width: "100px", display: "inline", margin: "5px" }} onChange={(e) => setPropertyStatus(e.target.value)} required>
+                                        <option value="">Select</option>
+                                        <option value="For Sale" >For Sale</option>
+                                        <option value="Sold" >Sold</option>
+                                        <option value="Withdrawn" >Withdraw</option>
 
-                                </select>
-                                <button type="submit">Change Status</button>
-
+                                    </select>
+                                    <button type="submit">Change Status</button>
                                 </form>
+
 
 
                             </div>
 
 
+
+
                         </div>
                     </div>
                 </div>
+
 
             )
 
@@ -165,6 +154,7 @@ function GetProperties(props) {
 
                                 <p className='card-title '>
                                     <p><b>Address:</b> {property.address}</p>
+                                    <p><b>Location:</b> {property.location}</p>
                                     <p> <b>Price: £</b> {property.price}</p>
                                     <p> <b>Type of Property:</b> {property.typeOfProperty}</p>
 
@@ -173,7 +163,7 @@ function GetProperties(props) {
                                     <p> <b>Garden</b> {property.garden}</p>
 
 
-                                    <p> <b>Seller ID:</b> {property.sellerid}</p>
+
                                     <p> <b>Status:</b> {property.propertyStatus}</p>
 
                                     <p><button disabled={true}
@@ -197,9 +187,9 @@ function GetProperties(props) {
 
                                 <form onSubmit={e => {
                                     e.preventDefault();
-                                    console.log("property id",property.id);
+                                    console.log("property id", property.id);
                                     // handleSubmit();
-                                    axios.patch("http://localhost:8080/property/update/" +property.id, { propertyStatus })
+                                    axios.patch("http://localhost:8080/property/update/" + property.id, { propertyStatus })
                                         .then(response => {
                                             fetchProperties()
 
@@ -211,16 +201,18 @@ function GetProperties(props) {
 
 
                                 }}>
-<label htmlFor="propertyStatus" className="form-check-label">Property Status</label><br />
-                                <select style={{ width: "100px", display: "inline", margin: "5px" }} onChange={(e) => setPropertyStatus(e.target.value)} required>
-                                    <option value="">Select</option>
-                                    <option value="For Sale" onChange={(e) => setPropertyStatus(e.target.value)}>For Sale</option>
-                                    <option value="Sold" onChange={(e) => setPropertyStatus(e.target.value)}>Sold</option>
-                                    <option value="Withdrawn" onChange={(e) => setPropertyStatus(e.target.value)}>Withdraw</option>
 
-                                </select>
-                                <button type="submit">Change Status</button>
+                                    <select style={{ width: "100px", display: "inline", margin: "5px" }} onChange={(e) => setPropertyStatus(e.target.value)} required>
+                                        <option value="">Select</option>
+                                        <option value="For Sale" >For Sale</option>
+                                        <option value="Sold" >Sold</option>
+                                        <option value="Withdrawn" >Withdraw</option>
+
+                                    </select>
+                                    <button type="submit">Change Status</button>
                                 </form>
+
+
 
                             </div>
 
@@ -242,29 +234,59 @@ function GetProperties(props) {
 
             <h3>Filter Properties:</h3>
             <br />
-            <form className="form-sub" ><h5>Search by property address</h5>
-                <p><input placeholder="Start Typing Here..." value={search} onChange={e => setSearch(e.target.value)} />
+            <form className="form-sub" >
+
+                <h5>Search Location</h5>
+                <p> <input value={searchLocation} onChange={e => setSearchLocation(e.target.value)} />
                 </p><br />
                 <h5>Search for minimum number of bedrooms required</h5>
                 <p>{searchBedrooms} <input type="range" min="1" max="55" value={searchBedrooms} onChange={e => setSearchBedrooms(e.target.value)} />
                 </p><br />
+
+
                 <h5>Search for maximum price</h5>
-                <p> {searchPrice} <input type="range" min="0" max="3000000" value={searchPrice} onChange={e => setPrice(e.target.value)} />
-                </p><br />
+                <p> <select value={searchPrice} onChange={e => setSearchPrice(e.target.value)} >
+                    <option selected value="" >Please select</option>
+                    <option selected value="100000" >£100,000</option>
+
+                    <option value="200000" >£200,000</option>
+                    <option value="300000" >£300,000</option>
+                    <option value="400000" >£400,000</option>
+                    <option value="500000" >£500,000</option>
+                    <option value="1000000" >£1,000,000</option>
+                    <option value="2000000" >£2,000,000</option>
+                    <option value="5000000" >£5,000,000</option>
+                </select></p>
+
+
                 <h5>Search for number of bathrooms </h5>
-                <p>{searchBathrooms} <input type="range" min="1" max="47" value={searchBathrooms} onChange={e => setSearchBathrooms(e.target.value)} />
+                <p> {searchBathrooms}<input type="range" min="1" max="47" value={searchBathrooms} onChange={e => setSearchBathrooms(e.target.value)} />
                 </p><br />
-                <h5>Garden</h5>
+                
                 <div>
-                    Yes <input checked={searchGardens === "true"} type="radio" value={"true"} onChange={e => setSearchGardens("true")} />
-                    No<input checked={searchGardens === "false"} type="radio" value={"false"} onChange={e => setSearchGardens("false")} />
+                    <h5>Garden</h5>
+                    
+                
+                <select value={searchGardens} onChange={e => setSearchGardens(e.target.value)} >
+                    <option selected value="" >Please select</option>
+                    <option  value="Yes" >Yes</option>
+                    <option value="No" >No</option>
+                    
+                </select>
                 </div>
+
+
                 <br />
                 <div>
                     <h5>Property Status</h5>
-                    For Sale <input checked={searchStatus === "For Sale"} type="radio" value={"For Sale"} onChange={e => setSearchStatus("For Sale")} />
-                    Sold <input checked={searchStatus === "Sold"} type="radio" value={"Sold"} onChange={e => setSearchStatus("Sold")} />
-                    Withdrawn <input checked={searchStatus === "Withdrawn"} type="radio" value={"Withdrawn"} onChange={e => setSearchStatus("Withdrawn")} />
+                                    
+                <select value={searchStatus} onChange={e => setSearchStatus(e.target.value)} >
+                    <option selected value=""  >Please select</option>
+                    <option  value="For Sale" >For Sale</option>
+                    <option value="Sold" >Sold</option>
+                    <option value="Withdrawn" >Withdrawn</option>
+
+                </select>
                 </div>
             </form>
             <br />
