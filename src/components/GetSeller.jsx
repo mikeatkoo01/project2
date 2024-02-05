@@ -12,7 +12,7 @@ function GetSeller() {
     function handleClick() {
 
 
-        axios.get("http://localhost:5000/sellers")
+        axios.get("http://localhost:8080/seller/display")
             .then(response => {
                 setSellers(response.data)
                 console.log(response);
@@ -42,8 +42,7 @@ function GetSeller() {
                                 <p><b>First Name:</b> {seller.firstName}</p>
                                 <p><b>Surname:</b> {seller.surname}</p>
                                 <p><b>Tel:</b> {seller.tel}</p>
-                                <p><b>Email:</b> {seller.email}</p>
-                                <p><b>Address:</b> {seller.address}</p>
+                                
 
                             </div>
                         </div>

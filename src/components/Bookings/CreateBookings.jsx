@@ -9,7 +9,7 @@ function CreateBookings() {
    const params = useParams();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/properties/" +params.id) 
+    axios.get("http://localhost:8080/property/display/{id}") 
     .then(res => {
        
     }).catch(err => console.error(err));
@@ -18,7 +18,7 @@ function CreateBookings() {
   return (  
     <form className="form" onSubmit={e => {e.preventDefault();
 
-axios.get("http://localhost:5000/bookings").then(response => {
+axios.get("http://localhost:8080/booking/display").then(response => {
 
 const existingBookings = response.data;
 const exists = existingBookings.some (booking => {
@@ -29,7 +29,7 @@ const exists = existingBookings.some (booking => {
 });
 
 if (!exists) {
-    axios.post("http://localhost:5000/bookings",{
+    axios.post("http://localhost:8080/booking/create",{
       date,time,property:params.id
     })
     .then(res => {setDate(""); setTime("");})
