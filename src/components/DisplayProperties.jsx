@@ -65,7 +65,7 @@ function GetProperties(props) {
 
 
 
-        //use a table or cards to include all of the data or else get rid of the button 
+      
 
         // if (property.propertyStatus === "For Sale"){setDisabledStatus(false)} else {setDisabledStatus(true)}
         if (property.propertyStatus === "For Sale")
@@ -176,19 +176,12 @@ function GetProperties(props) {
                                     />
                                 </p>
 
-                                {/* <label >Property Status</label>
-                                <select value={property.propertyStatu} onChange={e => handleStatus(e, property.id)} name="propertystatus" >
-                                    <option value="" >Status</option>
-                                    <option value="For Sale">For Sale</option>
-                                    <option value="Sold">Sold</option>
-                                    <option value="Withdrawn">Withdrawn</option>
-
-                                </select> */}
+                               
 
                                 <form onSubmit={e => {
                                     e.preventDefault();
                                     console.log("property id", property.id);
-                                    // handleSubmit();
+                                    
                                     axios.patch("http://localhost:8080/property/update/" + property.id, { propertyStatus })
                                         .then(response => {
                                             fetchProperties()
@@ -311,7 +304,3 @@ function GetProperties(props) {
 
 export default GetProperties;
 
-
-//if ((search==="" && searchBedrooms === 0) || (property.address.includes(search) && property.bedrooms >= searchBedrooms)) {
-// <input value = {search} onChange = {e => setSearch(e.target.value)}/>
-// <input type="range" min = "1" max = "10" value = {searchBedrooms} onChange = {e => setSearchBedrooms(e.target.value)}/>
