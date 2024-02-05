@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { useNavigate, params } from "react-router-dom";
 
 
-function GetProperties() {
+function GetProperties(props) {
+
 
     const [search, setSearch] = useState("");
     const [properties, setProperties] = useState("");
@@ -13,6 +14,9 @@ function GetProperties() {
     const [searchBathrooms, setSearchBathrooms] = useState(0);
     const [searchGardens, setSearchGardens] = useState("");
     const [searchStatus, setSearchStatus] = useState("");
+    const [garden, setGarden] = useState("");
+    const [disabledStatus, setDisabledStatus] = useState(false);
+    const [propertyStatus, setPropertyStatus] = useState("");
     const navigate = useNavigate();
 
 
@@ -31,7 +35,7 @@ function GetProperties() {
         axios.get("http://localhost:8080/property/display")
             .then(response => {
                 setProperties(response.data)
-                console.log(response);
+                console.log("http://localhost:8080/property/display ", response);
             })
             .catch(err => console.error(err))
 
@@ -41,17 +45,17 @@ function GetProperties() {
 
 
 
-    function handleStatus(event, id) {
+    // function handleStatus(event, id) {
 
 
-        axios.patch("http://localhost:8080/property/update/{id}", { propertystatus: event.target.value })
-            .then(response => {
-                fetchProperties()
-                console.log(response);
-            })
-            .catch(err => console.error(err))
+    //     axios.patch("http://localhost:8080/property/update/{id}", { propertyStatus: event.target.value })
+    //         .then(response => {
+    //             fetchProperties()
+    //             console.log(response);
+    //         })
+    //         .catch(err => console.error(err))
 
-    };
+    // };
 
 
     const displayProperties = [];
@@ -63,27 +67,23 @@ function GetProperties() {
         if (searchBedrooms && property.bedrooms < parseInt(searchBedrooms, 10)) continue;
         if (searchPrice && property.price > parseInt(searchPrice, 10)) continue;
         if (searchBathrooms && property.bathrooms < parseInt(searchBathrooms, 10)) continue;
-        if (searchGardens && property.garden != searchGardens) continue;
-        if (searchStatus && property.status != searchStatus) continue;
+        if (searchGardens && property.garden !== searchGardens) continue;
+        if (searchStatus && property.status !== searchStatus) continue;
+
+        // if(property.garden===true) property.setGarden("Yes");
+        // else  property.setGarden("No");
 
 
         //use a table or cards to include all of the data or else get rid of the button 
 
-        if (property.propertystatus === "For Sale")
-
+        // if (property.propertyStatus === "For Sale"){setDisabledStatus(false)} else {setDisabledStatus(true)}
+        if (property.propertyStatus === "For Sale")
             displayProperties.push(
-
-
-
                 <div className='col-4'>
-
-
 
                     <div className='card'>
                         <div className='card-body'>
-
                             <div className='card-text'>
-
                                 <p className='card-title '>
                                     <p><b>Address:</b> {property.address}</p>
                                     <p> <b>Price: £</b> {property.price}</p>
@@ -91,50 +91,60 @@ function GetProperties() {
 
                                     <p> <b>No. of Bedrooms:</b> {property.bedrooms}</p>
                                     <p> <b>No. of Bathrooms:</b>{property.bathrooms}</p>
-                                    <p> <b>Gardens?:</b> {property.garden}</p>
+                                    <p> <b>Garden</b> {property.garden}</p>
 
 
                                     <p> <b>Seller ID:</b> {property.sellerid}</p>
-                                    <p> <b>Status:</b> {property.propertystatus}</p>
+                                    <p> <b>Status:</b> {property.propertyStatus}</p>
 
                                     <p><button onClick={() => navigate("/properties/bookings/" + property.id)}
 
                                     >Book a viewing</button></p>
 
-
-
-
-
-
-                                    <img src={property.uploadimages}
+                                    <img src={property.uploadImages}
                                         className='Property-images'
-                                    />
+                                        alt="propertyImage" />
                                 </p>
-                                {/* lines 111 to 136 FORM added by TC to replace lines138 to 148 */}
 
-                                <label >Property Status</label>
-                                <select value={property.status} onChange={e => handleStatus(e, property.id)} name="propertystatus" >
+
+                                {/* <label >Property Status</label>
+                                <select value={property.propertyStatus} onChange={e => handleStatus(e, property.id)} name="propertystatus" >
                                     <option value="" >Status</option>
                                     <option value="For Sale">For Sale</option>
                                     <option value="Sold">Sold</option>
                                     <option value="Withdrawn">Withdrawn</option>
 
+                               </select> */}
 
+                                <form onSubmit={e => {
+                                    e.preventDefault();
+                                    //  handleStatus();
+                                    axios.patch("http://localhost:8080/property/{property.id}" )
+                                        .then(response => {
+                                            fetchProperties()
+
+                                        })
+                                        .catch(err => console.error(err))
+
+
+                                    setPropertyStatus("");
+
+
+                                }}>
+
+                                <select style={{ width: "100px", display: "inline", margin: "5px" }} onChange={(e) => setPropertyStatus(e.target.value)} required>
+                                    <option value="">Select</option>
+                                    <option value="For Sale">For Sale</option>
+                                    <option value="Sold">Sold</option>
+                                    <option value="Withdrawn">Withdraw</option>
 
                                 </select>
+                                <button type="submit">Change Status</button>
 
-
-
-
-
-
-
-
+                                </form>
 
 
                             </div>
-
-
 
 
                         </div>
@@ -146,11 +156,7 @@ function GetProperties() {
         else
             displayProperties.push(
 
-
-
                 <div className='col-4'>
-
-
 
                     <div className='card'>
                         <div className='card-body'>
@@ -160,50 +166,61 @@ function GetProperties() {
                                 <p className='card-title '>
                                     <p><b>Address:</b> {property.address}</p>
                                     <p> <b>Price: £</b> {property.price}</p>
-                                    <p> <b>Type of Property:</b> {property.typeofproperty}</p>
+                                    <p> <b>Type of Property:</b> {property.typeOfProperty}</p>
 
                                     <p> <b>No. of Bedrooms:</b> {property.bedrooms}</p>
                                     <p> <b>No. of Bathrooms:</b>{property.bathrooms}</p>
-                                    <p> <b>Gardens?:</b> {property.garden}</p>
+                                    <p> <b>Garden</b> {property.garden}</p>
 
 
                                     <p> <b>Seller ID:</b> {property.sellerid}</p>
-                                    <p> <b>Status:</b> {property.propertystatus}</p>
+                                    <p> <b>Status:</b> {property.propertyStatus}</p>
 
                                     <p><button disabled={true}
 
                                     >Book a viewing</button></p>
 
 
-
-
-
-
-                                    <img src={property.uploadimages}
-                                        className='Property-images'
+                                    <img src={property.uploadImages}
+                                        className='Property-images' alt="propertyImage"
                                     />
                                 </p>
-                                {/* lines 111 to 136 FORM added by TC to replace lines138 to 148 */}
 
-                                <label >Property Status</label>
-                                <select value={property.status} onChange={e => handleStatus(e, property.id)} name="propertystatus" >
+                                {/* <label >Property Status</label>
+                                <select value={property.propertyStatu} onChange={e => handleStatus(e, property.id)} name="propertystatus" >
                                     <option value="" >Status</option>
                                     <option value="For Sale">For Sale</option>
                                     <option value="Sold">Sold</option>
                                     <option value="Withdrawn">Withdrawn</option>
 
+                                </select> */}
 
+                                <form onSubmit={e => {
+                                    e.preventDefault();
+                                    console.log("property id",property.id);
+                                    // handleSubmit();
+                                    axios.patch("http://localhost:8080/property/update/" +property.id, { propertyStatus })
+                                        .then(response => {
+                                            fetchProperties()
+
+                                        })
+                                        .catch(err => console.error(err))
+
+
+                                    setPropertyStatus("");
+
+
+                                }}>
+<label htmlFor="propertyStatus" className="form-check-label">Property Status</label><br />
+                                <select style={{ width: "100px", display: "inline", margin: "5px" }} onChange={(e) => setPropertyStatus(e.target.value)} required>
+                                    <option value="">Select</option>
+                                    <option value="For Sale" onChange={(e) => setPropertyStatus(e.target.value)}>For Sale</option>
+                                    <option value="Sold" onChange={(e) => setPropertyStatus(e.target.value)}>Sold</option>
+                                    <option value="Withdrawn" onChange={(e) => setPropertyStatus(e.target.value)}>Withdraw</option>
 
                                 </select>
-
-
-
-
-
-
-
-
-
+                                <button type="submit">Change Status</button>
+                                </form>
 
                             </div>
 
@@ -271,6 +288,7 @@ function GetProperties() {
 }
 
 export default GetProperties;
+
 
 //if ((search==="" && searchBedrooms === 0) || (property.address.includes(search) && property.bedrooms >= searchBedrooms)) {
 // <input value = {search} onChange = {e => setSearch(e.target.value)}/>
