@@ -1,77 +1,83 @@
-import {useState, useEffect}from "react"; 
+import { useState, useEffect } from "react";
 import axios from "axios";
- import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
+import BuyerDropDown from "../BuyerDropDown";
 
 function CreateBookings() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
-  
-   const params = useParams();
+  const [buyer, setBuyer] = useState("");
+
+  const params = useParams();
 
   useEffect(() => {
-    axios.get("http://localhost:8080/property/display/{id}") 
-    .then(res => {
-       
-    }).catch(err => console.error(err));
-}, []);
- 
-  return (  
-    <form className="form" onSubmit={e => {e.preventDefault();
+    axios.get("http://localhost:8080/property/display/" + params.id)
+      .then(res => {
 
-axios.get("http://localhost:8080/booking/display").then(response => {
+      }).catch(err => console.error(err));
+  }, []);
 
-const existingBookings = response.data;
-const exists = existingBookings.some (booking => {
-  return booking.date === date && booking.time === time;
+  return (
+    <form className="form" onSubmit={e => {
+      e.preventDefault();
 
+      axios.get("http://localhost:8080/booking/display").then(response => {
 
-
-});
-
-if (!exists) {
-    axios.post("http://localhost:8080/booking/create",{
-      date,time,property:params.id
-    })
-    .then(res => {setDate(""); setTime("");})
-    .catch(err => console.log (err));
+        const existingBookings = response.data;
+        const exists = existingBookings.some(booking => {
+          return booking.date === date && booking.time === time;
 
 
 
-  }else { alert ("Booking already exists")
-}
+        });
+
+        if (!exists) {
+          axios.post("http://localhost:8080/booking/create", {
+            date, time, property:{ id: params.id}, buyer:{ id: buyer}
+          })
+            .then(res => { setDate(""); setTime(""); })
+            .catch(err => console.log(err));
 
 
-    }) .catch(err => console.log (err))}}
+
+        } else {
+          alert("Booking already exists")
+        }
 
 
- >
+      }).catch(err => console.log(err))
+    }}
 
 
-<label htmlFor="bookingDate"className="form-label">Date</label>
-<input id="bookingsDate"
-name="date"
-className="form-control"
-type="date"
-value={date}
-onChange={e => setDate(e.target.value)}/>
-
-<label htmlFor="bookingTime"className="form-label">Time</label>
-<input id="bookingsTime"
-name="time"
-className="form-control"
-type="time"
-value={time}
-min = "09:00"
-max = "16:00"
-step = "3600"
-onChange={e => setTime(e.target.value)}/>
+    >
 
 
-<br />
-<>
- <button className="btn btn-danger" type="submit">Confirm Booking</button>
- </>
-  </form>) 
+      <label htmlFor="bookingDate" className="form-label">Date</label>
+      <input id="bookingsDate"
+        name="date"
+        className="form-control"
+        type="date"
+        value={date}
+        onChange={e => setDate(e.target.value)} />
+
+      <label htmlFor="bookingTime" className="form-label">Time</label>
+      <input id="bookingsTime"
+        name="time"
+        className="form-control"
+        type="time"
+        value={time}
+        min="09:00"
+        max="16:00"
+        step="3600"
+        onChange={e => setTime(e.target.value)} />
+
+      <BuyerDropDown value={buyer} onChange={e => setBuyer(e.target.value)} />
+
+      <br />
+      <>
+        <button className="btn btn-danger" type="submit">Confirm Booking</button>
+      </>
+    </form>)
 
 }
 
