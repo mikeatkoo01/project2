@@ -223,7 +223,7 @@ function GetProperties(props) {
 
                 </div>
             </div>
-            <button onClick={() => alert("Quality is the JALAL way: No price is too high to pay.")}>Click Here for Discount Code</button><br />
+           
         </>
     );
 }

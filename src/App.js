@@ -1,4 +1,4 @@
-import logo from "./components/image-20231114-143925-5507bda3.jpeg";
+import logo from "./image-20240206-114436-b8abddc1.jpeg";
 import './App.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './components/Home';

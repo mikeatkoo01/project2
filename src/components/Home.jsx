@@ -1,17 +1,17 @@
-import logo from "./image-20231114-143925-5507bda3.jpeg"
+import logo from "../image-20240206-114436-b8abddc1.jpeg";
 
 function Home() {
     return ( 
 <div className = "HomePage">
-<h1 className = "homeHeading">JALAL is Where the Home is!?</h1>
+<h1 className = "homeHeading">MAGYC is Where the Home is!?</h1>
 <img src={logo} className="App-logo2" alt="logo" />
 
 <>
 <br/>
 <br/>
-<h1 className = "valueList">Team JALAL Values!</h1>
+<h1 className = "valueList">Team MAGYC Values!</h1>
 <br/>
-<h3 className = "value1">When we think of JALAL we think of HOME, 
+<h3 className = "value1">When we think of MAGYC we think of HOME, 
     Whether in Colour or Monochrome.
 </h3>
 <br/>
