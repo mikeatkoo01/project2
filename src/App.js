@@ -26,11 +26,11 @@ function App() {
 
           </div>
           <img src={logo} className="App-logo" alt="logo" />
-          <div className= "App-nav" ><Link class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" to='/'> HOME </Link>
-          <Link class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" to='/buyers'> BUYERS </Link>
-          <Link class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" to='/sellers'> SELLERS </Link>
-          <Link class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"to='/properties'> PROPERTIES </Link>
-          <Link class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"to='/bookings'> BOOKINGS </Link>
+          <div className= "App-nav" ><Link class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" to='/'style={{margin:"10px"}} > HOME </Link>
+          <Link class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" to='/buyers'style={{margin:"10px"}}> BUYERS </Link>
+          <Link class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" to='/sellers'style={{margin:"10px"}}> SELLERS </Link>
+          <Link class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"to='/properties'style={{margin:"10px"}}> PROPERTIES </Link>
+          <Link class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"to='/bookings'style={{margin:"10px"}}> BOOKINGS </Link>
           </div>
 
         </nav> 

@@ -7,75 +7,64 @@ function CreateBookings() {
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [buyer, setBuyer] = useState("");
-
+  const [bookings, setBookings] = useState([]);
   const params = useParams();
 
   useEffect(() => {
     axios.get("http://localhost:8080/property/display/" + params.id)
       .then(res => {
-
+        debugger                        
+setBookings(res.data.bookings)
       }).catch(err => console.error(err));
   }, []);
+  function checkBooking(t) {
+    // debugger
+    return bookings?.some(booking => {
+      debugger
+      return booking.date === date && booking.time.startsWith(t);
 
+    });
+  }
   return (
     <form className="form" onSubmit={e => {
       e.preventDefault();
 
-      axios.get("http://localhost:8080/booking/display").then(response => {
-
-        const existingBookings = response.data;
-        const exists = existingBookings.some(booking => {
-          return booking.date === date && booking.time === time;
-
-
-
-        });
-
-        if (!exists) {
-          axios.post("http://localhost:8080/booking/create", {
-            date, time, property:{ id: params.id}, buyer:{ id: buyer}
-          })
-            .then(res => { setDate(""); setTime(""); setBuyer(""); })
-            .catch(err => console.log(err));
-
-
-
-        } else {
-          alert("Booking already exists")
-        }
-
-
-      }).catch(err => console.log(err))
+      axios.post("http://localhost:8080/booking/create", {
+        date, time, property: { id: params.id }, buyer: { id: buyer }
+      })
+        .then(res => { setDate(""); setTime(""); setBuyer(""); })
+        .catch(err => console.log(err));
     }}
 
-
     >
-
-
       <label htmlFor="bookingDate" className="form-label">Date</label>
       <input id="bookingsDate"
         name="date"
         className="form-control"
         type="date"
         value={date}
-        onChange={e => setDate(e.target.value)} />
-
-      <label htmlFor="bookingTime" className="form-label">Time</label>
-      <input id="bookingsTime"
-        name="time"
-        className="form-control"
-        type="time"
-        value={time}
-        min="09:00"
-        max="16:00"
-        step="3600"
-        onChange={e => setTime(e.target.value)} />
+        onChange={e => { setDate(e.target.value); console.log(date) }} />
 <br/>
+
+      <select value={time} onChange={e => setTime(e.target.value)} disabled={!date}>
+        <option value="">Select Time</option>
+        <option disabled={checkBooking("08")} value="8:00">8:00-9:00</option>
+        <option disabled={checkBooking("09")} value="9:00">9:00-10:00</option>
+        <option disabled={checkBooking("10")} value="10:00">10:00-11:00</option>
+        <option disabled={checkBooking("11")} value="11:00">11:00-12:00</option>
+        <option disabled={checkBooking("12")} value="12:00">12:00-13:00</option>
+        <option disabled={checkBooking("13")} value="13:00">13:00-14:00</option>
+        <option disabled={checkBooking("14")} value="14:00">14:00-15:00</option>
+        <option disabled={checkBooking("15")} value="15:00">15:00-16:00</option>
+        <option disabled={checkBooking("16")} value="16:00">16:00-17:00</option>
+      </select>
+      <br />
+      <br/>
       <BuyerDropDown value={buyer} onChange={e => setBuyer(e.target.value)} />
 
       <br />
       <>
-      <br/>
+        <br />
         <button className="btn btn-danger" type="submit">Confirm Booking</button>
       </>
     </form>)
