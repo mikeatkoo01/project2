@@ -12,7 +12,7 @@ function CreateBuyers() {
 
     return (<form onSubmit={e => {
         e.preventDefault();
-        axios.post("http://localhost:3000/posts/1", { title, firstName, surname, tel, email, address })
+        axios.post("http://localhost:8080/posts/1", { title, firstName, surname, tel, email, address })
             .then(response => {
                 console.log(response);
                 setTitle("");

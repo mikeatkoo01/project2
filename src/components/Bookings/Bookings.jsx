@@ -4,7 +4,7 @@ import GetBookings from "./GetBookings";
 function Bookings () {
     return ( 
     <div className = "MainPages">
-    <h1>Jalal is the place to make bookings to see all the best properties!</h1> 
+    <h1>MAGYC is the place to make bookings to see all the best properties!</h1> 
     
     <br />
     <h3><u>Current Bookings:</u></h3>

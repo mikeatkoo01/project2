@@ -79,7 +79,7 @@ function GetProperties(props) {
                                     <p><b>Address:</b> {property.address}</p>
                                     <p><b>Location:</b> {property.location}</p>
                                     <p> <b>Price: £</b> {property.price}</p>
-                                    <p> <b>Type of Property:</b> {property.typeOfProperty}</p>
+                                    <p> <b>Type of Property:</b> {property.typeofproperty}</p>
 
                                     <p> <b>No. of Bedrooms:</b> {property.bedrooms}</p>
                                     <p> <b>No. of Bathrooms:</b>{property.bathrooms}</p>
@@ -223,7 +223,7 @@ function GetProperties(props) {
 
                 </div>
             </div>
-           
+            <button onClick={() => alert("Quality is the JALAL way: No price is too high to pay.")}>Click Here for Discount Code</button><br />
         </>
     );
 }
