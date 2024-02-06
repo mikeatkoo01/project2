@@ -12,8 +12,7 @@ function CreateBookings() {
 
   useEffect(() => {
     axios.get("http://localhost:8080/property/display/" + params.id)
-      .then(res => {
-        debugger                        
+      .then(res => {                     
 setBookings(res.data.bookings)
       }).catch(err => console.error(err));
   }, []);
