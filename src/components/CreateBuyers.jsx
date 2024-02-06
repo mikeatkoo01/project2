@@ -45,10 +45,11 @@ function CreateBuyers() {
 
                 } else {
                 
-                 alert("Buyer with the same name already exists")
+                  alert("Buyer with the same name already exists")
                 }
             }).catch(err => console.error(err));
-        }}>
+        }
+        }>
 
 
 
