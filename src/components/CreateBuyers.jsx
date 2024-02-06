@@ -90,7 +90,7 @@ function CreateBuyers() {
             id="buyerTel"
             name="tel"
             className="form-control"
-            type="number"
+            type="text"
             value={tel}
             onChange={e => setTel(e.target.value)}
             required

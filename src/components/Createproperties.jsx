@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import  GetProperties  from "./GetProperties";
+import GetProperties from "./GetProperties";
 import { DisplayProperties } from "./DisplayProperties";
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +27,7 @@ function CreateProperties() {
             .catch(console.log);
 
 
-      
+
     }
     useEffect(() => { getProperties() }, [])
 
@@ -49,11 +49,11 @@ function CreateProperties() {
                 setPropertyStatus("For Sale");
                 setPrice("");
 
-                
+
 
             })
             .catch(err => console.error(err))
-            window.location.reload();
+        window.location.reload();
     }}>
         <label htmlFor="propertyAddress" className="form-label">Address</label>
         <input
@@ -128,7 +128,7 @@ function CreateProperties() {
 
                 <select onChange={e => {
                     setGarden(e.target.value);
-                  
+
                 }
 
                 }>
@@ -141,17 +141,6 @@ function CreateProperties() {
             </div>
         </div>
 
-
-        <label htmlFor="PropertySellerid" className="form-label">Seller ID</label>
-        <input
-            id="propertySellerid"
-            name="sellerid"
-            className="form-control"
-            type="number"
-            value={sellerid}
-            onChange={e => setSellerid(e.target.value)}
-            required
-        />
         <label htmlFor="PropertyUploadImages" className="form-label">Upload images</label>
         <input
             id="propertyUploadImages"

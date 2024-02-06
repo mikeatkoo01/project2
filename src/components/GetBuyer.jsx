@@ -42,7 +42,7 @@ function GetBuyer() {
                             <p><b>Tel:</b> {buyer.tel}</p>
                            
                             <p><button type="button" onClick={() => {
-                        axios.delete("http://localhost:8080/buyer/remove/{id}")
+                        axios.delete("http://localhost:8080/buyer/remove/" + buyer.id)
                             .then(res => {
 
 

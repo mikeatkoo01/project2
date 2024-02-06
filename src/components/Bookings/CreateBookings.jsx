@@ -35,7 +35,7 @@ function CreateBookings() {
           axios.post("http://localhost:8080/booking/create", {
             date, time, property:{ id: params.id}, buyer:{ id: buyer}
           })
-            .then(res => { setDate(""); setTime(""); })
+            .then(res => { setDate(""); setTime(""); setBuyer(""); })
             .catch(err => console.log(err));
 
 
@@ -70,11 +70,12 @@ function CreateBookings() {
         max="16:00"
         step="3600"
         onChange={e => setTime(e.target.value)} />
-
+<br/>
       <BuyerDropDown value={buyer} onChange={e => setBuyer(e.target.value)} />
 
       <br />
       <>
+      <br/>
         <button className="btn btn-danger" type="submit">Confirm Booking</button>
       </>
     </form>)
