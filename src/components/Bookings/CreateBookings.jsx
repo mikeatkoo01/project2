@@ -47,8 +47,8 @@ setBookings(res.data.bookings)
 
       <select value={time} onChange={e => setTime(e.target.value)} disabled={!date}>
         <option value="">Select Time</option>
-        <option disabled={checkBooking("08")} value="8:00">8:00-9:00</option>
-        <option disabled={checkBooking("09")} value="9:00">9:00-10:00</option>
+        <option disabled={checkBooking("08")} value="08:00">8:00-9:00</option>
+        <option disabled={checkBooking("09")} value="09:00">9:00-10:00</option>
         <option disabled={checkBooking("10")} value="10:00">10:00-11:00</option>
         <option disabled={checkBooking("11")} value="11:00">11:00-12:00</option>
         <option disabled={checkBooking("12")} value="12:00">12:00-13:00</option>
